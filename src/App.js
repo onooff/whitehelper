@@ -1,11 +1,6 @@
+import Layout from './Layouts';
+import Dummy from './components/Dummy';
 
-
-function App() {
-  return (
-    <div>
-      hello world
-    </div>
-  );
+export default function App() {
+  return <Layout chlidren={<Dummy/>}></Layout>;
 }
-
-export default App;
