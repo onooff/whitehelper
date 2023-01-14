@@ -11,6 +11,5 @@ export const customTheme = createTheme({
   },
   typography: {
     fontFamily: 'Pretendard',
-    wordBreak: 'keep-all',
   },
 });
