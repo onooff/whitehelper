@@ -1,0 +1,28 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 256" width="600" height="256">
+	<title>화이트 헬퍼 로고(ai)-ai</title>
+	<style>
+		.s0 { fill: #231f20 } 
+		.s1 { fill: #000000 } 
+	</style>
+	<g id="레이어 1">
+		<g id="&lt;Group&gt;">
+			<g id="&lt;Group&gt;">
+				<path id="&lt;Compound Path&gt;" class="s0" d="m69.9 241l-10.4-46h9.9l4.3 22 2.5 12.8h0.2l2.9-12.8 5-22h11l5.1 22 2.9 12.8h0.2l2.4-12.8 4.4-22h9.5l-10.7 46h-11.4l-5.8-24.9-2.2-10.1h-0.2l-2.3 10.1-5.8 24.9z"/>
+				<path id="&lt;Compound Path&gt;" class="s0" d="m154.4 222.1h-17.6v18.9h-10v-46h10v18.3h17.6v-18.3h10v46h-10z"/>
+				<path id="&lt;Compound Path&gt;" class="s0" d="m172.8 241v-8h5.9v-30.1h-5.9v-7.9h21.9v7.9h-6v30.1h6v8z"/>
+				<path id="&lt;Compound Path&gt;" class="s0" d="m222 203.9v37.1h-10v-37.1h-12.5v-8.9h34.9v8.9z"/>
+				<path id="&lt;Compound Path&gt;" class="s0" d="m241.3 241v-46h31.3v8.9h-21.3v9.4h18.3v8.8h-18.3v10h21.3v8.9z"/>
+				<path id="&lt;Compound Path&gt;" class="s0" d="m324.5 222.1h-17.6v18.9h-10v-46h10v18.3h17.6v-18.3h10v46h-10z"/>
+				<path id="&lt;Compound Path&gt;" class="s0" d="m344.6 241v-46h31.4v8.9h-21.3v9.4h18.2v8.8h-18.2v10h21.3v8.9z"/>
+				<path id="&lt;Compound Path&gt;" class="s0" d="m384.7 241v-46h10v37.1h17.5v8.9z"/>
+				<path id="&lt;Compound Path&gt;" fill-rule="evenodd" class="s0" d="m419.6 241v-46h21.8c8.6 0 14 6 14 14.7 0 8.7-5.4 14.7-14 14.7h-11.8v16.6zm10.1-25.3h10.5c3 0 4.8-1.6 4.8-4.6v-2.9c0-3-1.8-4.5-4.8-4.5h-10.5z"/>
+				<path id="&lt;Compound Path&gt;" class="s0" d="m462.9 241v-46h31.3v8.9h-21.3v9.4h18.3v8.8h-18.3v10h21.3v8.9z"/>
+				<path id="&lt;Compound Path&gt;" fill-rule="evenodd" class="s0" d="m512.9 241h-10v-46h21.8c8.5 0 14 5.9 14 14.7 0 6.2-2.8 11.1-8.4 13.2l9 18.1h-11.1l-8.1-16.9h-7.2zm10.6-25.3c3 0 4.8-1.6 4.8-4.6v-2.9c0-2.9-1.8-4.5-4.8-4.5h-10.6v12z"/>
+			</g>
+			<g id="&lt;Group&gt;">
+				<path id="&lt;Path&gt;" class="s1" d="m332.1 66.3l21.9-52.9c6.1 4.9 11.6 10.5 16.2 16.9l-38.2 91.9-17.1-32.2-17.3 41.5-47.2-88.4 21-16.8 26.2 49.2 17.2-41.6z"/>
+				<path id="&lt;Path&gt;" class="s1" d="m381.8 106.4c-11.2 33.3-42.6 57.2-79.7 57.2-46.4 0-84-37.6-84-84 0-32.4 18.3-60.5 45.2-74.6-21.3 14.6-35.2 39-35.2 66.7 0 44.6 36.1 80.8 80.7 80.8 32.2 0 60-18.8 73-46.1z"/>
+			</g>
+		</g>
+	</g>
+</svg>
