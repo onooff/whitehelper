@@ -1,5 +1,5 @@
 import { Grid, Box, Typography, Divider, Avatar, Button } from '@mui/material';
-import { LocationOn, Call, Email, Message, Person } from '@mui/icons-material';
+import { LocationOn, Call, Email, Message } from '@mui/icons-material';
 
 function ContactElement({ Icon, title, content }) {
   return (
@@ -60,10 +60,12 @@ export default function Contact() {
           title="채팅으로 문의하기"
           content={
             <Button variant="contained">
-              <Avatar sx={{ width: '1.5rem', height: '1.5rem' }}>
-                <Person />
-              </Avatar>
-              Send Message
+              <Avatar
+                alt="admin"
+                src="/mock/member/admin.jpg"
+                sx={{ width: '1.5rem', height: '1.5rem' }}
+              ></Avatar>
+              <Typography sx={{ ml: '0.5rem' }}>Send Message</Typography>
             </Button>
           }
         />
