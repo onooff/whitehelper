@@ -1,21 +1,25 @@
-import PropTypes from 'prop-types';
-import { ButtonGroup as MuiButtonGroup, Button } from '@mui/material';
+import PropTypes from "prop-types";
+import { ButtonGroup as MuiButtonGroup, Button, Tooltip } from "@mui/material";
+import { QuestionMark, Phone, Login } from "@mui/icons-material";
+import LoggedInMenuButton from "./LoggedInMenuButton";
 
 export default function ButtonGroup({ isLogin, setIsLogin }) {
   const flip = () => { setIsLogin((prev) => !prev) }
   return (
-    isLogin ? (<>
-      <MuiButtonGroup>
-        <Button>Login OK</Button>
-        <Button onClick={flip}>LOGOUT</Button>
-      </MuiButtonGroup>
-    </>)
-      : (<>
-        <MuiButtonGroup>
-          <Button>Not Login</Button>
-          <Button onClick={flip}>LOGIN</Button>
-        </MuiButtonGroup>
-      </>)
+    <MuiButtonGroup variant="contained">
+      <Tooltip title="화이트헬퍼 소개">
+        <Button><QuestionMark /></Button>
+      </Tooltip>
+      <Tooltip title="문의처">
+        <Button><Phone /></Button>
+      </Tooltip>
+      {
+        isLogin ?
+          <LoggedInMenuButton />
+          :
+          <Button onClick={flip}><Login /></Button>
+      }
+    </MuiButtonGroup >
   );
 }
 
