@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Box, Grid, Link } from "@mui/material"
+import { Link } from "react-router-dom";
+import { Box, Grid } from "@mui/material"
 import SearchInput from "./SearchInput";
 import ButtonGroup from "./ButtonGroup";
 
 export default function Header() {
-  const [isLogin, setIsLogin] = useState(false);
+  const [member, setMember] = useState({});
 
   const headerStyle = {
     position: "sticky",
@@ -19,7 +20,7 @@ export default function Header() {
     <Grid container component="header" sx={headerStyle}>
       <Grid item xs={0.2} />
       <Grid item xs={4.3} display="flex" justifyContent="left" alignItems="center">
-        <Link href="/">
+        <Link to="/">
           <Box component="img" alt="whitehelper_logo" src="/logo.svg" sx={{ width: "15rem", }} />
         </Link>
       </Grid>
@@ -27,7 +28,7 @@ export default function Header() {
         <SearchInput />
       </Grid>
       <Grid item xs={4.3} display="flex" justifyContent="right" alignItems="center">
-        <ButtonGroup isLogin={isLogin} setIsLogin={setIsLogin} sx={{ width: "100%", }} />
+        <ButtonGroup member={member} setMember={setMember} sx={{ width: "100%", }} />
       </Grid>
       <Grid item xs={0.2} />
     </Grid>
