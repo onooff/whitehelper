@@ -9,10 +9,10 @@ export default function ButtonGroup({ member, setMember }) {
   return (
     <>
       <Tooltip title="화이트헬퍼 소개">
-        <Button LinkComponent={Link} to="about"><QuestionMark /></Button>
+        <Button LinkComponent={Link} to="about">ABOUT</Button>
       </Tooltip>
       <Tooltip title="문의처">
-        <Button LinkComponent={Link} to="contact"><Phone /></Button>
+        <Button LinkComponent={Link} to="contact">CONTACT</Button>
       </Tooltip>
       {member === null ?
         <Tooltip title="로그인">
@@ -21,13 +21,13 @@ export default function ButtonGroup({ member, setMember }) {
         :
         <>
           <Tooltip title="찜목록">
-            <Button LinkComponent={Link} to="/"><Favorite /></Button>
+            <Button LinkComponent={Link} to="/">FAVORITE</Button>
           </Tooltip>
           <Tooltip title="메시지">
-            <Button LinkComponent={Link} to="/"><Message /></Button>
+            <Button LinkComponent={Link} to="/">MESSAGE</Button>
           </Tooltip>
           <Tooltip title="회원정보">
-            <Button LinkComponent={Link} to="/"><Settings /></Button>
+            <Button LinkComponent={Link} to="/">SETTINGS</Button>
           </Tooltip>
           <Tooltip title="로그아웃">
             <Button LinkComponent={Link} to="/" onClick={logout}><Logout /></Button>
