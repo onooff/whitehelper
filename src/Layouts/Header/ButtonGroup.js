@@ -1,25 +1,46 @@
-import PropTypes from 'prop-types';
-import { ButtonGroup as MuiButtonGroup, Button } from '@mui/material';
+import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import { Tooltip, Button, Avatar } from "@mui/material";
+import { QuestionMark, Phone, Login, Favorite, Message, Settings, Logout } from "@mui/icons-material";
 
-export default function ButtonGroup({ isLogin, setIsLogin }) {
-  const flip = () => { setIsLogin((prev) => !prev) }
+export default function ButtonGroup({ member, setMember }) {
+  const logout = () => { setMember((prev) => null); }
+
   return (
-    isLogin ? (<>
-      <MuiButtonGroup>
-        <Button>Login OK</Button>
-        <Button onClick={flip}>LOGOUT</Button>
-      </MuiButtonGroup>
-    </>)
-      : (<>
-        <MuiButtonGroup>
-          <Button>Not Login</Button>
-          <Button onClick={flip}>LOGIN</Button>
-        </MuiButtonGroup>
-      </>)
+    <>
+      <Tooltip title="화이트헬퍼 소개">
+        <Button LinkComponent={Link} to="about"><QuestionMark /></Button>
+      </Tooltip>
+      <Tooltip title="문의처">
+        <Button LinkComponent={Link} to="contact"><Phone /></Button>
+      </Tooltip>
+      {member === null ?
+        <Tooltip title="로그인">
+          <Button LinkComponent={Link} to="login"><Login /></Button>
+        </Tooltip>
+        :
+        <>
+          <Tooltip title="찜목록">
+            <Button LinkComponent={Link} to="/"><Favorite /></Button>
+          </Tooltip>
+          <Tooltip title="메시지">
+            <Button LinkComponent={Link} to="/"><Message /></Button>
+          </Tooltip>
+          <Tooltip title="회원정보">
+            <Button LinkComponent={Link} to="/"><Settings /></Button>
+          </Tooltip>
+          <Tooltip title="로그아웃">
+            <Button LinkComponent={Link} to="/" onClick={logout}><Logout /></Button>
+          </Tooltip>
+          <Tooltip title={member.nickname}>
+            <Avatar alt={member.nickname} src={member.profileImage} />
+          </Tooltip>
+        </>}
+    </ >
   );
 }
 
 ButtonGroup.propTypes = {
-  isLogin: PropTypes.bool.isRequired,
-  setIsLogin: PropTypes.func.isRequired
+  member: PropTypes.object,
+  setMember: PropTypes.func.isRequired
 };
