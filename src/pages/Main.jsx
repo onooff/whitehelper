@@ -1,23 +1,22 @@
 import React from "react";
-import Container from "@mui/material/Container";
 import Grid from "@mui/material/Unstable_Grid2";
-import data from "../_mock/data";
+import { houses } from "../_mock/data";
 import HouseCard from "../components/card/HouseCard";
 import Box from "@mui/material/Box";
 
 function Main() {
-  console.log(data);
   return (
-    <Box>
+    <Box p={"0 80px"} m={"10px"}>
       <Grid
         container
         spacing={{ xs: 2, md: 3 }}
         columns={{ xs: 4, sm: 8, md: 12 }}
       >
-        {data.map((item) => (
-          <Grid item key={item} xs={12} sm={4} md={2.4}>
+        {houses.map((item) => (
+          <Grid item key={item} xs={12} sm={4} md={3}>
             {
               <HouseCard
+                id={item.id}
                 img={item.img}
                 rate={item.rate}
                 locate={item.locate}

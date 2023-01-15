@@ -1,6 +1,6 @@
-import Layout from './Layouts';
-import Dummy from './components/Dummy';
+import Layout from "./Layouts";
+import Main from "./pages/Main";
 
 export default function App() {
-  return <Layout chlidren={<Dummy/>}></Layout>;
+  return <Layout chlidren={<Main />}></Layout>;
 }
