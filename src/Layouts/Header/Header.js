@@ -1,11 +1,10 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 import { Box, Grid } from "@mui/material"
 import SearchInput from "./SearchInput";
 import ButtonGroup from "./ButtonGroup";
 
-export default function Header() {
-  const [member, setMember] = useState({});
+export default function Header({ member, setMember }) {
 
   const headerStyle = {
     position: "sticky",
@@ -34,3 +33,8 @@ export default function Header() {
     </Grid>
   );
 }
+
+Header.propTypes = {
+  member: PropTypes.object,
+  setMember: PropTypes.func.isRequired
+};

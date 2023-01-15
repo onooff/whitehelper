@@ -1,18 +1,14 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import { ButtonGroup as MuiButtonGroup, Tooltip, Button, Avatar } from "@mui/material";
-import { QuestionMark, Phone, Login, Message, Settings, Logout } from "@mui/icons-material";
-import { memberList } from "../../_mock/member";
+import { Tooltip, Button, Avatar } from "@mui/material";
+import { QuestionMark, Phone, Login, Favorite, Message, Settings, Logout } from "@mui/icons-material";
 
 export default function ButtonGroup({ member, setMember }) {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const login = () => { setMember((prev) => memberList[0]) }
-  const logout = () => { setMember((prev) => null) }
-  const menuFlip = () => { setIsMenuOpen((prev) => !prev) }
+  const logout = () => { setMember((prev) => null); }
 
   return (
-    <MuiButtonGroup variant="contained">
+    <>
       <Tooltip title="화이트헬퍼 소개">
         <Button LinkComponent={Link} to="about"><QuestionMark /></Button>
       </Tooltip>
@@ -21,34 +17,32 @@ export default function ButtonGroup({ member, setMember }) {
       </Tooltip>
       {member === null ?
         <Tooltip title="로그인">
-          <Button LinkComponent={Link} to="/" onClick={login}><Login /></Button>
+          <Button LinkComponent={Link} to="login"><Login /></Button>
         </Tooltip>
+
         :
         <>
-          {isMenuOpen ?
-            <>
-              <Tooltip title="메시지">
-                <Button LinkComponent={Link} to="/"><Message /></Button>
-              </Tooltip>
-              <Tooltip title="회원정보">
-                <Button LinkComponent={Link} to="/"><Settings /></Button>
-              </Tooltip>
-              <Tooltip title="로그아웃">
-                <Button LinkComponent={Link} to="/" onClick={logout}><Logout /></Button>
-              </Tooltip>
-            </>
-            :
-            <>
-            </>}
+          <Tooltip title="찜목록">
+            <Button LinkComponent={Link} to="/"><Favorite /></Button>
+          </Tooltip>
+          <Tooltip title="메시지">
+            <Button LinkComponent={Link} to="/"><Message /></Button>
+          </Tooltip>
+          <Tooltip title="회원정보">
+            <Button LinkComponent={Link} to="/"><Settings /></Button>
+          </Tooltip>
+          <Tooltip title="로그아웃">
+            <Button LinkComponent={Link} to="/" onClick={logout}><Logout /></Button>
+          </Tooltip>
           <Tooltip title={member.nickname}>
-            <Button LinkComponent={Link} to="/" onClick={menuFlip}><Avatar alt={member.nickname} src={member.profileImage} sx={{ width: "1.5rem", height: "1.5rem" }} /></Button>
+            <Avatar alt={member.nickname} src={member.profileImage} />
           </Tooltip>
         </>}
-    </MuiButtonGroup>
+    </ >
   );
 }
 
 ButtonGroup.propTypes = {
-  member: PropTypes.object.isRequired,
+  member: PropTypes.object,
   setMember: PropTypes.func.isRequired
 };
