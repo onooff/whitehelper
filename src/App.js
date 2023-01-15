@@ -1,11 +1,6 @@
+import Layout from "./Layouts";
+import Main from "./pages/Main";
 
-
-function App() {
-  return (
-    <div>
-      hello world
-    </div>
-  );
+export default function App() {
+  return <Layout chlidren={<Main />}></Layout>;
 }
-
-export default App;
