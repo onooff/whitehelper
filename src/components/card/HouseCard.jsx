@@ -3,12 +3,12 @@ import HouseCarousel from "./HouseCarousel";
 import Stack from "@mui/material/Stack";
 import HouseContent from "./HouseContent";
 
-export default function HouseCard({ img, locate, price, rate }) {
+export default function HouseCard({ id, img, locate, price, rate }) {
   return (
     <>
       <Stack>
-        <HouseCarousel img={img} />
-        <HouseContent locate={locate} price={price} rate={rate} />
+        <HouseCarousel img={img} id={id} />
+        <HouseContent id={id} locate={locate} price={price} rate={rate} />
       </Stack>
     </>
   );

@@ -1,5 +1,6 @@
-const data = [
+export const houses = [
   {
+    id: 1,
     img: [
       "https://picsum.photos/800/600?random=1",
       "https://picsum.photos/800/600?random=2",
@@ -12,6 +13,7 @@ const data = [
     price: "₩309,258",
   },
   {
+    id: 2,
     img: [
       "https://picsum.photos/800/600?random=6",
       "https://picsum.photos/800/600?random=7",
@@ -24,6 +26,7 @@ const data = [
     price: "₩240,000",
   },
   {
+    id: 3,
     img: [
       "https://picsum.photos/800/600?random=11",
       "https://picsum.photos/800/600?random=12",
@@ -36,6 +39,7 @@ const data = [
     price: "₩240,000",
   },
   {
+    id: 4,
     img: [
       "https://picsum.photos/800/600?random=16",
       "https://picsum.photos/800/600?random=17",
@@ -48,6 +52,7 @@ const data = [
     price: "₩240,000",
   },
   {
+    id: 5,
     img: [
       "https://picsum.photos/800/600?random=21",
       "https://picsum.photos/800/600?random=22",
@@ -60,6 +65,7 @@ const data = [
     price: "₩240,000",
   },
   {
+    id: 6,
     img: [
       "https://picsum.photos/800/600?random=26",
       "https://picsum.photos/800/600?random=27",
@@ -72,6 +78,7 @@ const data = [
     price: "₩240,000",
   },
   {
+    id: 7,
     img: [
       "https://picsum.photos/800/600?random=31",
       "https://picsum.photos/800/600?random=32",
@@ -84,6 +91,7 @@ const data = [
     price: "₩240,000",
   },
   {
+    id: 8,
     img: [
       "https://picsum.photos/800/600?random=36",
       "https://picsum.photos/800/600?random=37",
@@ -96,6 +104,7 @@ const data = [
     price: "₩240,000",
   },
   {
+    id: 9,
     img: [
       "https://picsum.photos/800/600?random=41",
       "https://picsum.photos/800/600?random=42",
@@ -108,6 +117,7 @@ const data = [
     price: "₩240,000",
   },
   {
+    id: 10,
     img: [
       "https://picsum.photos/800/600?random=46",
       "https://picsum.photos/800/600?random=47",
@@ -120,6 +130,7 @@ const data = [
     price: "₩240,000",
   },
   {
+    id: 11,
     img: [
       "https://picsum.photos/800/600?random=51",
       "https://picsum.photos/800/600?random=52",
@@ -132,6 +143,7 @@ const data = [
     price: "₩240,000",
   },
   {
+    id: 12,
     img: [
       "https://picsum.photos/800/600?random=56",
       "https://picsum.photos/800/600?random=57",
@@ -144,5 +156,3 @@ const data = [
     price: "₩240,000",
   },
 ];
-
-export default data;

@@ -5,6 +5,7 @@ import FavoriteTwoToneIcon from "@mui/icons-material/FavoriteTwoTone";
 import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Box from "@mui/material/Box";
+import { Link } from "react-router-dom";
 
 const StyledProductImg = styled("img")({
   top: 0,
@@ -15,7 +16,7 @@ const StyledProductImg = styled("img")({
   position: "relative",
 });
 
-export default function HouseCarousel({ img }) {
+export default function HouseCarousel({ img, id }) {
   const [isHovering, setIsHovering] = useState(true);
   const [isLike, setLike] = useState(false);
   const iconClickHandler = () => {
@@ -53,7 +54,7 @@ export default function HouseCarousel({ img }) {
         navButtonsAlwaysVisible={!isHovering}
       >
         {img.map((item, i) => (
-          <Item key={i} item={item} />
+          <Item key={i} item={item} id={id} />
         ))}
       </Carousel>
       <IconButton
@@ -72,10 +73,12 @@ export default function HouseCarousel({ img }) {
   );
 }
 
-function Item(props) {
+function Item({ item, id }) {
   return (
     <>
-      <StyledProductImg src={props.item} loading="eager" />
+      <Link to={`/detail/${id}`}>
+        <StyledProductImg src={item} loading="eager" />
+      </Link>
     </>
   );
 }
