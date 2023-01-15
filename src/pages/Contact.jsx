@@ -25,12 +25,6 @@ export default function Contact() {
     <Grid container display="flex" justifyContent="space-evenly">
       <Grid item container xs={5}>
         <Grid item xs={12} mb="1rem" display="flex" justifyContent="center">
-          {/* <Box
-            component="img"
-            alt="whitehelper_logo"
-            src="/mock/contact/contact1.svg"
-            sx={{ width: '30rem' }}
-          /> */}
           <Box
             component="div"
             sx={{
@@ -44,7 +38,7 @@ export default function Contact() {
           ></Box>
         </Grid>
         <Grid item xs={12} mb="2rem">
-          <Typography variant="h3">
+          <Typography variant="h4">
             화이트헬퍼는 여러분들의 많은 관심과 협업 문의를 기다리고 있습니다.
           </Typography>
         </Grid>
@@ -54,21 +48,24 @@ export default function Contact() {
           content="경상북도 영천시 서문길 99, 303호(교촌동, 엔젤빌라트)"
         />
         <ContactElement Icon={Call} title="화이트헬퍼 연락처" content="010-2944-9515" />
-        <ContactElement Icon={Email} title="E-Mail" content="내용" />
-        <ContactElement
-          Icon={Message}
-          title="채팅으로 문의하기"
-          content={
+        <ContactElement Icon={Email} title="E-Mail" content="admin@whitehelper.com" />
+        <Grid item container xs={12} mb={'3rem'}>
+          <Grid item xs={1} display="flex" justifyContent="center" alignItems="center">
+            <Message fontSize="large" />
+          </Grid>
+          <Grid item xs={11}>
             <Button variant="contained">
               <Avatar
                 alt="admin"
                 src="/mock/member/admin.jpg"
                 sx={{ width: '1.5rem', height: '1.5rem' }}
               ></Avatar>
-              <Typography sx={{ ml: '0.5rem' }}>Send Message</Typography>
+              <Typography variant="h5" sx={{ ml: '0.7rem' }}>
+                채팅으로 문의하기
+              </Typography>
             </Button>
-          }
-        />
+          </Grid>
+        </Grid>
       </Grid>
       <Grid
         item
