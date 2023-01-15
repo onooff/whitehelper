@@ -6,9 +6,9 @@ import CustomDatePicker from "../components/detail/CustomDatePicker";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import { houses } from "../_mock/data";
-import { memberList } from "../_mock/member";
 import { alpha, styled } from "@mui/material/styles";
 import { Stack, TextField, Typography } from "@mui/material";
+
 import Avatar from "@mui/material/Avatar";
 import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
@@ -16,19 +16,22 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import StarRateIcon from "@mui/icons-material/StarRate";
 import CampaignIcon from "@mui/icons-material/Campaign";
-import SavingsTwoToneIcon from "@mui/icons-material/SavingsTwoTone";
 
-import { addDays } from "date-fns";
-import { useParams } from "react-router";
-
+const StyledProductImg = styled("img")({
+  top: 0,
+  width: "100%",
+  height: "100%",
+  objectFit: "cover",
+  position: "relative",
+});
 function convertDateKr(props) {
   return new Intl.DateTimeFormat("kr").format(props);
 }
 const getDateDiff = (state) => {
   const diffDate = state[0].endDate.getTime() - state[0].startDate.getTime();
+
   return Math.abs(diffDate / (1000 * 60 * 60 * 24)); // 밀리세컨 * 초 * 분 * 시 = 일
 };
-
 const RedditTextField = styled((props) => (
   <TextField InputProps={{ disableUnderline: true }} {...props} />
 ))(({ theme }) => ({
@@ -61,21 +64,20 @@ function srcset(image, size, rows = 1, cols = 1) {
     }&fit=crop&auto=format&dpr=2 2x`,
   };
 }
-
-const arr = [2, 1, 1, 1, 1];
+function nextDay() {
+  let res = new Date();
+  res.setDate(res.getDate() + 1);
+  return res;
+}
 export const HouseDetail = () => {
-  const param = useParams();
-  const id = parseInt(param.id) - 1;
-  const member = memberList[id % 6];
-  const [house, setHouse] = useState(houses[id]);
+  const itemData = houses[0].img;
   const [state, setState] = useState([
     {
       startDate: new Date(),
-      endDate: addDays(new Date(), 1),
+      endDate: nextDay(),
       key: "selection",
     },
   ]);
-
   useEffect(() => {
     setState(state);
   }, [state]);
@@ -91,7 +93,7 @@ export const HouseDetail = () => {
           }}
         >
           <Typography variant="h4" mb={1}>
-            {house.locate}
+            전통기와 한옥 본채
           </Typography>
           <Grid
             container
@@ -104,10 +106,9 @@ export const HouseDetail = () => {
           >
             <Grid item xs="auto" alignItems={"flex-end"}>
               <Stack direction="row" spacing={1}>
-                <Typography variant="h7">
-                  <StarRateIcon sx={{ fontSize: "medium" }} />
-                  {house.rate}
-                </Typography>
+                <Typography variant="h7">별점</Typography>
+                <Typography variant="h7">슈퍼호스트</Typography>
+                <Typography variant="h7">양평군, 경기도, 한국</Typography>
               </Stack>
             </Grid>
             <Grid item xs="auto">
@@ -151,16 +152,47 @@ export const HouseDetail = () => {
         </Container>
         {/* 사진 */}
         <Container>
-          <ImageList sx={{ width: "100%" }} variant="quilted" cols={4}>
-            {arr.map((size, index) => (
-              <ImageListItem key={index} cols={size} rows={size}>
-                <img
-                  alt={index}
-                  {...srcset(house.img[index], size, size)}
-                  loading="lazy"
-                />
-              </ImageListItem>
-            ))}
+          <ImageList
+            sx={{ width: "100%" }}
+            variant="quilted"
+            cols={4}
+            rowHeight="calc(60vh - 64px)"
+          >
+            <ImageListItem key={1} cols={2} rows={2}>
+              <img
+                alt="1"
+                {...srcset("https://picsum.photos/800/600?random=5", 2, 2)}
+                loading="lazy"
+              />
+            </ImageListItem>
+            <ImageListItem key={1} cols={1} rows={1}>
+              <img
+                alt="1"
+                {...srcset("https://picsum.photos/800/600?random=5")}
+                loading="lazy"
+              />
+            </ImageListItem>
+            <ImageListItem key={1} cols={1} rows={1}>
+              <img
+                alt="1"
+                {...srcset("https://picsum.photos/800/600?random=5")}
+                loading="lazy"
+              />
+            </ImageListItem>
+            <ImageListItem key={1} cols={1} rows={1}>
+              <img
+                alt="1"
+                {...srcset("https://picsum.photos/800/600?random=5")}
+                loading="lazy"
+              />
+            </ImageListItem>
+            <ImageListItem key={1} cols={1} rows={1}>
+              <img
+                alt="1"
+                {...srcset("https://picsum.photos/800/600?random=5")}
+                loading="lazy"
+              />
+            </ImageListItem>
           </ImageList>
         </Container>
         {/* 소개 및 예약페이지 */}
@@ -173,19 +205,15 @@ export const HouseDetail = () => {
                   <Grid item xs={11}>
                     <Stack direction="column">
                       <Typography variant="h5" component="h2">
-                        {member.nickname} 님이 호스팅하는 집 전체
+                        Fieldtrip 님이 호스팅하는 집 전체
                       </Typography>
                       <Stack direction="row">
-                        최대 인원 : {house.person} 명
+                        최대 인원 8명침실 4개침대 4개욕실 5개
                       </Stack>
                     </Stack>
                   </Grid>
-                  <Grid item xs={1}>
-                    <Avatar
-                      sx={{ width: "100%", height: "100%" }}
-                      src={member.profileImage}
-                      alt={member.nickname}
-                    />
+                  <Grid item xs="1">
+                    <Avatar sx={{ width: "100%", height: "100%" }} />
                   </Grid>
                 </Grid>
 
@@ -219,9 +247,8 @@ export const HouseDetail = () => {
                       mb={2}
                     >
                       <Grid item component="div" xs="auto">
-                        <SavingsTwoToneIcon />
                         <Typography component="span" variant="h4">
-                          {house.price}
+                          ₩348,392
                         </Typography>
                         <Typography component="span" variant="h7">
                           /박
@@ -279,11 +306,10 @@ export const HouseDetail = () => {
                     </Typography>
                     <Stack direction="row" justifyContent="space-between">
                       <Typography mt={2} mb={2} variant="h7" align="center">
-                        {house.price} x {getDateDiff(state)}박
+                        얼마 x {getDateDiff(state)}박
                       </Typography>
                       <Typography mt={2} mb={2} variant="h7" align="center">
-                        <SavingsTwoToneIcon sx={{ fontSize: "medium" }} />
-                        {house.price * getDateDiff(state)}
+                        값
                       </Typography>
                     </Stack>
                     <Divider style={{ width: "100%" }} />
@@ -292,8 +318,7 @@ export const HouseDetail = () => {
                         총합계
                       </Typography>
                       <Typography mt={2} mb={2} variant="h7">
-                        <SavingsTwoToneIcon sx={{ fontSize: "medium" }} />
-                        {house.price * getDateDiff(state)}
+                        값
                       </Typography>
                     </Stack>
                   </Grid>
