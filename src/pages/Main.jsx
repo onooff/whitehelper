@@ -13,7 +13,7 @@ function Main() {
         columns={{ xs: 4, sm: 8, md: 12 }}
       >
         {houses.map((item) => (
-          <Grid item key={item} xs={12} sm={4} md={3}>
+          <Grid item key={item.id} xs={12} sm={4} md={3}>
             {
               <HouseCard
                 id={item.id}
