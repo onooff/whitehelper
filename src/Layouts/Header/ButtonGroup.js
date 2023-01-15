@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Tooltip, Button, Avatar } from "@mui/material";
@@ -19,7 +18,6 @@ export default function ButtonGroup({ member, setMember }) {
         <Tooltip title="로그인">
           <Button LinkComponent={Link} to="login"><Login /></Button>
         </Tooltip>
-
         :
         <>
           <Tooltip title="찜목록">
