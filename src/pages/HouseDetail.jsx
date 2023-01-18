@@ -37,11 +37,7 @@ const RedditTextField = styled((props) => (
     overflow: "hidden",
     borderRadius: 4,
     backgroundColor: theme.palette.mode === "light" ? "#fcfcfb" : "#2b2b2b",
-    transition: theme.transitions.create([
-      "border-color",
-      "background-color",
-      "box-shadow",
-    ]),
+    transition: theme.transitions.create(["border-color", "background-color", "box-shadow"]),
     "&:hover": {
       backgroundColor: "transparent",
     },
@@ -56,9 +52,7 @@ const RedditTextField = styled((props) => (
 function srcset(image, size, rows = 1, cols = 1) {
   return {
     src: `${image}?w=${size * cols}&h=${size * rows}&fit=crop&auto=format`,
-    srcSet: `${image}?w=${size * cols}&h=${
-      size * rows
-    }&fit=crop&auto=format&dpr=2 2x`,
+    srcSet: `${image}?w=${size * cols}&h=${size * rows}&fit=crop&auto=format&dpr=2 2x`,
   };
 }
 
@@ -120,11 +114,7 @@ export const HouseDetail = () => {
                         transform: "rotate(-0.25turn)",
                       }}
                     />
-                    <Typography
-                      align="right"
-                      variant="h7"
-                      sx={{ textDecoration: "underline" }}
-                    >
+                    <Typography align="right" variant="h7" sx={{ textDecoration: "underline" }}>
                       공유하기
                     </Typography>
                   </Stack>
@@ -136,11 +126,7 @@ export const HouseDetail = () => {
                         fontSize: "medium",
                       }}
                     />
-                    <Typography
-                      align="right"
-                      variant="h7"
-                      sx={{ textDecoration: "underline" }}
-                    >
+                    <Typography align="right" variant="h7" sx={{ textDecoration: "underline" }}>
                       저장
                     </Typography>
                   </Stack>
@@ -154,11 +140,7 @@ export const HouseDetail = () => {
           <ImageList sx={{ width: "100%" }} variant="quilted" cols={4}>
             {arr.map((size, index) => (
               <ImageListItem key={index} cols={size} rows={size}>
-                <img
-                  alt={index}
-                  {...srcset(house.img[index], size, size)}
-                  loading="lazy"
-                />
+                <img alt={index} {...srcset(house.img[index], size, size)} loading="lazy" />
               </ImageListItem>
             ))}
           </ImageList>
@@ -175,9 +157,7 @@ export const HouseDetail = () => {
                       <Typography variant="h5" component="h2">
                         {member.nickname} 님이 호스팅하는 집 전체
                       </Typography>
-                      <Stack direction="row">
-                        최대 인원 : {house.person} 명
-                      </Stack>
+                      <Stack direction="row">최대 인원 : {house.person} 명</Stack>
                     </Stack>
                   </Grid>
                   <Grid item xs={1}>
@@ -231,7 +211,7 @@ export const HouseDetail = () => {
                         <Stack direction="row" spacing={0.5}>
                           <StarRateIcon sx={{ fontSize: "medium" }} />
                           <Typography component="span" variant="h7">
-                            4.1
+                            {house.rate}
                           </Typography>
                         </Stack>
                       </Grid>
@@ -300,11 +280,7 @@ export const HouseDetail = () => {
                 </Box>
                 <Box mt={3} textAlign="center">
                   <Button>
-                    <Stack
-                      direction="row"
-                      spacing={1}
-                      alignItems="center !important"
-                    >
+                    <Stack direction="row" spacing={1} alignItems="center !important">
                       <CampaignIcon sx={{ fontSize: "medium" }} />
                       <Typography
                         component="span"
