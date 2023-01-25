@@ -23,9 +23,6 @@ export default function ButtonGroup({ member, setMember }) {
           <Tooltip title="찜목록">
             <Button LinkComponent={Link} to="/">FAVORITE</Button>
           </Tooltip>
-          <Tooltip title="메시지">
-            <Button LinkComponent={Link} to="/">MESSAGE</Button>
-          </Tooltip>
           <Tooltip title="회원정보">
             <Button LinkComponent={Link} to="/">SETTINGS</Button>
           </Tooltip>
