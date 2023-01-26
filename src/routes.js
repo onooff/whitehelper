@@ -1,53 +1,57 @@
-import { createBrowserRouter, Navigate } from "react-router-dom";
-import Layout from "./Layouts";
-import Main from "./pages/Main";
-import About from './pages/About'
-import Contact from './pages/Contact'
-import Login from './pages/Login'
-import Search from './pages/Search'
-import Favorite from './pages/Favorite'
-import { HouseDetail } from "./pages/HouseDetail";
+import { createBrowserRouter, Navigate } from 'react-router-dom';
+import Layout from './Layouts';
+import Main from './pages/Main';
+import About from './pages/About';
+import Contact from './pages/Contact';
+import Login from './pages/Login';
+import Search from './pages/Search';
+import Favorite from './pages/Favorite';
+import { HouseDetail } from './pages/HouseDetail';
+import HouseBook from './pages/HouseBook';
 
 export const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <Layout />,
     children: [
       {
-        path: "/",
+        path: '/',
         element: <Main />,
       },
       {
-        path: "detail/:id",
+        path: 'detail/:id',
         element: <HouseDetail />,
       },
       {
-        path: "about",
+        path: 'about',
         element: <About />,
       },
       {
-        path: "contact",
+        path: 'contact',
         element: <Contact />,
       },
       {
-        path: "login",
+        path: 'login',
         element: <Login />,
       },
       {
-        path: "search",
+        path: 'book',
+        element: <HouseBook />,
+      },
+      {
+        path: 'search',
         element: <Navigate to="/" />,
       },
       {
-        path: "search/:keyword",
+        path: 'search/:keyword',
         element: <Search />,
       },
       {
-        path: "favorite",
+        path: 'favorite',
         element: <Favorite />,
       },
     ],
   },
 ]);
-
 
 // "
