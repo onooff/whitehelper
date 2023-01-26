@@ -30,6 +30,7 @@ export default function Join() {
           point: 10000,
           profileImage: '',
           favorite: [],
+          book: [],
         });
         alert('가입성공');
         navigate('/login');
