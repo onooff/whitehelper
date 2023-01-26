@@ -21,6 +21,9 @@ import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import { RedditTextField } from '../components/textfield/RedditTextField';
 import { convertDateKr, convertQueryDate, getDateDiff } from '../utils/dateUtils';
+import Snackbar from '@mui/material/Snackbar';
+import ReportDialog from '../components/detail/ReportDialog';
+import { useOutletContext } from 'react-router-dom';
 
 function srcset(image, size, rows = 1, cols = 1) {
   return {
@@ -31,9 +34,11 @@ function srcset(image, size, rows = 1, cols = 1) {
 
 const arr = [2, 1, 1, 1, 1];
 export const HouseDetail = () => {
+  const { member } = useOutletContext();
+
   const param = useParams();
   const id = parseInt(param.id) - 1;
-  const member = memberList[id % 6];
+  const m = memberList[id % 6];
   const [house, setHouse] = useState(houses[id]);
   const [state, setState] = useState([
     {
@@ -42,10 +47,26 @@ export const HouseDetail = () => {
       key: 'selection',
     },
   ]);
+  const [snackbar, setSnackbar] = useState(false);
+  const [report, setReport] = useState(false);
+  const [hidden, setHidden] = useState(true);
 
-  useEffect(() => {
-    setState(state);
-  }, [state]);
+  const closeSnackbarHandler = () => {
+    setSnackbar(false);
+  };
+  const shareClickhandler = () => {
+    let url = window.document.location.href;
+    setSnackbar(true);
+
+    navigator.clipboard
+      .writeText(url)
+      .then(() => {})
+      .catch(() => {});
+  };
+
+  const saveClickhandler = () => {
+    console.log('저장');
+  };
 
   return (
     <Box>
@@ -71,16 +92,14 @@ export const HouseDetail = () => {
           >
             <Grid item xs="auto" alignItems={'flex-end'}>
               <Stack direction="row" spacing={1}>
-                <Typography variant="h7">
-                  <StarRateIcon sx={{ fontSize: 'medium' }} />
-                  {house.rate}
-                </Typography>
+                <StarRateIcon sx={{ fontSize: 'medium' }} />
+                <Typography variant="h7">{house.rate}</Typography>
               </Stack>
             </Grid>
             <Grid item xs="auto">
               <Stack direction="row" spacing={1}>
-                <Button size="small" sx={{ color: 'black' }}>
-                  <Stack direction="row" spacing={1}>
+                <Button size="small" sx={{ color: 'black' }} onClick={shareClickhandler}>
+                  <Stack direction="row" spacing={1} alignItems="center">
                     <LogoutIcon
                       sx={{
                         fontSize: 'medium',
@@ -92,15 +111,27 @@ export const HouseDetail = () => {
                     </Typography>
                   </Stack>
                 </Button>
-                <Button size="small" sx={{ color: 'black' }}>
-                  <Stack direction="row" spacing={1}>
+                <Snackbar
+                  anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                  open={snackbar}
+                  onClose={closeSnackbarHandler}
+                  message="클립보드에 복사 성공!!"
+                  key="shared"
+                  autoHideDuration={2000}
+                  sx={{
+                    '.MuiSnackbarContent-root': { justifyContent: 'center' },
+                  }}
+                />
+
+                <Button size="small" sx={{ color: 'black' }} onClick={saveClickhandler}>
+                  <Stack direction="row" spacing={1} alignItems="center">
                     <FavoriteBorderIcon
                       sx={{
                         fontSize: 'medium',
                       }}
                     />
                     <Typography align="right" variant="h7" sx={{ textDecoration: 'underline' }}>
-                      저장
+                      찜하기
                     </Typography>
                   </Stack>
                 </Button>
@@ -128,7 +159,7 @@ export const HouseDetail = () => {
                   <Grid item xs={11}>
                     <Stack direction="column">
                       <Typography variant="h5" component="h2">
-                        {member.nickname} 님이 호스팅하는 집 전체
+                        {m.nickname} 님이 호스팅하는 집 전체
                       </Typography>
                       <Stack direction="row">최대 인원 : {house.person} 명</Stack>
                     </Stack>
@@ -136,8 +167,8 @@ export const HouseDetail = () => {
                   <Grid item xs={1}>
                     <Avatar
                       sx={{ width: '100%', height: '100%' }}
-                      src={member.profileImage}
-                      alt={member.nickname}
+                      src={m.profileImage}
+                      alt={m.nickname}
                     />
                   </Grid>
                 </Grid>
@@ -256,7 +287,12 @@ export const HouseDetail = () => {
                   </Grid>
                 </Box>
                 <Box mt={3} textAlign="center">
-                  <Button>
+                  <Button
+                    onClick={() => {
+                      setReport(true);
+                      setHidden(true);
+                    }}
+                  >
                     <Stack direction="row" spacing={1} alignItems="center !important">
                       <CampaignIcon sx={{ fontSize: 'medium' }} />
                       <Typography
@@ -268,6 +304,12 @@ export const HouseDetail = () => {
                       </Typography>
                     </Stack>
                   </Button>
+                  <ReportDialog
+                    open={report}
+                    setOpen={setReport}
+                    hidden={hidden}
+                    setHidden={setHidden}
+                  />
                 </Box>
               </Grid>
             </Grid>
