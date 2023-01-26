@@ -7,6 +7,9 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Paper from '@mui/material/Paper';
 import Draggable from 'react-draggable';
+import { getFirestore, doc, updateDoc } from 'firebase/firestore';
+import firebaseInit from '../../configs/firebaseInit';
+import { useNavigate } from 'react-router-dom';
 
 function PaperComponent(props) {
   return (
@@ -16,12 +19,28 @@ function PaperComponent(props) {
   );
 }
 
-export default function SubmitDialog({ open, setOpen }) {
+export default function SubmitDialog({ open, setOpen, setMember, point, date, houseId }) {
+  const navigate = useNavigate();
+
   const closeHandler = () => {
     setOpen(false);
   };
   const saveHandler = () => {
-    setOpen(false);
+    const app = firebaseInit();
+    const db = getFirestore(app);
+    setMember((m) => {
+      m.point = m.point - point;
+      m.book.push({ startDate: date.startDate, endDate: date.endDate, houseId });
+      updateDoc(doc(db, 'member', m.uid), { point: m.point, book: Array.from(m.book) })
+        .then(() => {
+          setOpen(false);
+          navigate('/book/complete');
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+      return m;
+    });
   };
   return (
     <div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Button, Container, Grid, Paper, Typography } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { Link } from 'react-router-dom';
 
 export default function BookComplete() {
   return (
@@ -40,12 +41,12 @@ export default function BookComplete() {
               gap={3}
             >
               <Grid item>
-                <Button href="/" variant="contained" size="large">
+                <Button LinkComponent={Link} to="/" variant="contained" size="large">
                   홈으로
                 </Button>
               </Grid>
               <Grid item>
-                <Button href="/books" variant="contained" size="large">
+                <Button LinkComponent={Link} to="/books" variant="contained" size="large">
                   예약 내역
                 </Button>
               </Grid>

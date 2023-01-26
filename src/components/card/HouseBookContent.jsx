@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Button, Divider, Typography } from '@mui/material';
 import { Container, Stack } from '@mui/system';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-
+import { convertDateKr, getDateDiff } from '../../utils/dateUtils';
 export default function HouseBookContent({ startDate, endDate, location, id }) {
   return (
     <Box
@@ -19,7 +19,7 @@ export default function HouseBookContent({ startDate, endDate, location, id }) {
           </Box>
           <Box>
             <Typography component="span" variant="h5">
-              {/* {subDays(new Date(), new Date())}일 */}2일
+              {getDateDiff([{ startDate: startDate, endDate: new Date() }])}일
             </Typography>
           </Box>
           <Box>
@@ -33,7 +33,7 @@ export default function HouseBookContent({ startDate, endDate, location, id }) {
         </Container>
         <Box pl={2}>
           <Typography>
-            {startDate} ~ {endDate}
+            {convertDateKr(startDate)} ~ {convertDateKr(endDate)}
           </Typography>
         </Box>
       </Stack>

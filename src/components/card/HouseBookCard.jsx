@@ -4,7 +4,7 @@ import { Container } from '@mui/system';
 import HouseBookImg from './HouseBookImg';
 import HouseBookContent from './HouseBookContent';
 
-export default function HouseBookCard({ startDate, endDate, location, img, id }) {
+export default function HouseBookCard({ startDate, endDate, location, img, id, bookId }) {
   return (
     <Container
       sx={{
