@@ -10,10 +10,11 @@ import {
   Container,
   Link,
 } from '@mui/material';
-import { memberList } from '../_mock/member';
+import firebaseInit from '../configs/firebaseInit';
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
+import { getFirestore, doc, getDoc } from 'firebase/firestore';
 
 export default function Login() {
-  //임시 로그인 구현
   const { member, setMember } = useOutletContext();
   const navigate = useNavigate();
   useEffect(() => {
@@ -25,15 +26,37 @@ export default function Login() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const id = data.get('id');
+    const email = data.get('email');
     const password = data.get('password');
-    memberList.forEach((m) => {
-      if (m.id === id && m.password === password)
-        setMember((prev) => {
-          m['favorite'] = new Set();
-          return m;
+    const remember = data.get('remember');
+    if (remember) {
+      localStorage.setItem('rememberEmail', email);
+    } else {
+      localStorage.removeItem('rememberEmail');
+    }
+
+    const app = firebaseInit();
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        const uid = user.uid;
+
+        const db = getFirestore(app);
+        getDoc(doc(db, 'member', uid)).then((docSnap) => {
+          const m = docSnap.data();
+          m.favorite = new Set(m.favorite);
+          m.uid = uid;
+          alert('로그인 성공');
+          setMember(m);
         });
-    });
+      })
+      .catch((error) => {
+        alert('로그인 실패');
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(error);
+      });
   };
 
   return (
@@ -62,11 +85,12 @@ export default function Login() {
             margin="normal"
             required
             fullWidth
-            id="id"
-            label="ID"
-            name="id"
-            autoComplete="id"
+            id="email"
+            label="Email Address"
+            name="email"
+            autoComplete="email"
             autoFocus
+            defaultValue={localStorage.rememberEmail}
           />
           <TextField
             margin="normal"
@@ -79,8 +103,14 @@ export default function Login() {
             type="password"
           />
           <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="로그인 정보 기억하기"
+            control={
+              <Checkbox
+                name="remember"
+                color="primary"
+                defaultChecked={localStorage.rememberEmail ? true : false}
+              />
+            }
+            label="Email 기억하기"
           />
           <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
             로그인
@@ -92,7 +122,7 @@ export default function Login() {
               </Link>
             </Grid>
             <Grid item>
-              <Link component={RouterLink} to="/">
+              <Link component={RouterLink} to="/join">
                 가입하기
               </Link>
             </Grid>
