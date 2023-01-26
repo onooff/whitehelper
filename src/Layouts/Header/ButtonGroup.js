@@ -2,9 +2,22 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Tooltip, Button, Avatar } from "@mui/material";
 import { Login, Logout } from "@mui/icons-material";
+import { getAuth, signOut } from "firebase/auth";
+
 
 export default function ButtonGroup({ member, setMember }) {
-  const logout = () => { setMember((prev) => null); }
+  const logout = () => {
+    const auth = getAuth();
+    signOut(auth).then(() => {
+      alert('로그아웃 성공');
+      setMember(null);
+    }).catch((error) => {
+      alert('로그아웃 실패');
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(error);
+    });
+  }
 
   return (
     <>
