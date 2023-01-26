@@ -9,7 +9,12 @@ import {
   Container,
   Link,
 } from '@mui/material';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  setPersistence,
+  browserSessionPersistence,
+} from 'firebase/auth';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -27,10 +32,12 @@ export default function Login() {
     }
 
     const auth = getAuth();
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        alert('로그인 성공');
-        navigate('/');
+    setPersistence(auth, browserSessionPersistence)
+      .then(() => {
+        signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
+          alert('로그인 성공');
+          navigate('/');
+        });
       })
       .catch((error) => {
         alert('로그인 실패');
