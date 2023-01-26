@@ -67,7 +67,7 @@ export default function SearchInput() {
           <StyledInputBase
             placeholder="Search…"
             inputProps={{ "aria-label": "search" }}
-            fullWidth={true}
+            sx={{ width: "30rem" }}
             id="keyword"
             name="keyword" />
         </Search>

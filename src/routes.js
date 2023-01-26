@@ -5,6 +5,7 @@ import About from './pages/About'
 import Contact from './pages/Contact'
 import Login from './pages/Login'
 import Search from './pages/Search'
+import Favorite from './pages/Favorite'
 import { HouseDetail } from "./pages/HouseDetail";
 
 export const router = createBrowserRouter([
@@ -39,6 +40,10 @@ export const router = createBrowserRouter([
       {
         path: "search/:keyword",
         element: <Search />,
+      },
+      {
+        path: "favorite",
+        element: <Favorite />,
       },
     ],
   },

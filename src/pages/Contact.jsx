@@ -1,5 +1,5 @@
-import { Grid, Box, Typography, Divider, Avatar, Button } from '@mui/material';
-import { LocationOn, Call, Email, Message } from '@mui/icons-material';
+import { Grid, Box, Typography, Divider } from '@mui/material';
+import { LocationOn, Call, Email } from '@mui/icons-material';
 
 function ContactElement({ Icon, title, content }) {
   return (

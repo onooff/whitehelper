@@ -28,7 +28,11 @@ export default function Login() {
     const id = data.get('id');
     const password = data.get('password');
     memberList.forEach((m) => {
-      if (m.id === id && m.password === password) setMember((prev) => m);
+      if (m.id === id && m.password === password)
+        setMember((prev) => {
+          m['favorite'] = new Set();
+          return m;
+        });
     });
   };
 
