@@ -136,7 +136,7 @@ export default function HouseBook() {
                     </Box>
                   </Box>
                   <Divider />
-                  {!member ? (
+                  {member ? (
                     <Box>
                       <Button onClick={SubmitDialogClickHandler}>
                         <Typography variant="h5" mb={1}>
@@ -194,7 +194,7 @@ export default function HouseBook() {
                       </Grid>
                     </Grid>
 
-                    {!member ? (
+                    {member ? (
                       <Box>
                         <Divider />
                         <Stack spacing={1}>

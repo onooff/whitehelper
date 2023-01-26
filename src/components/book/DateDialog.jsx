@@ -14,7 +14,6 @@ import { Stack } from '@mui/system';
 import { RedditTextField } from '../textfield/RedditTextField';
 import { convertDateKr, getDateDiff } from '../../utils/dateUtils';
 import CustomDatePicker from '../detail/CustomDatePicker';
-import { useEffect } from 'react';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
