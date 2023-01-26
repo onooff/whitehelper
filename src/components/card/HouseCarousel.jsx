@@ -71,7 +71,13 @@ export default function HouseCarousel({ img, id, member, setMember }) {
         ))}
       </Carousel>
       <IconButton
-        onClick={member ? iconClickHandler : null}
+        onClick={
+          member
+            ? iconClickHandler
+            : () => {
+                alert('로그인이 필요한 기능입니다.');
+              }
+        }
         sx={{
           zIndex: 9,
           top: 10,

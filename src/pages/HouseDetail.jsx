@@ -140,7 +140,17 @@ export const HouseDetail = () => {
                   }}
                 />
 
-                <Button size="small" sx={{ color: 'black' }} onClick={saveClickhandler}>
+                <Button
+                  size="small"
+                  sx={{ color: 'black' }}
+                  onClick={
+                    member
+                      ? saveClickhandler
+                      : () => {
+                          alert('로그인이 필요한 기능입니다.');
+                        }
+                  }
+                >
                   <Stack direction="row" spacing={1} alignItems="center">
                     {member ? (
                       member.favorite.has(oid) ? (
