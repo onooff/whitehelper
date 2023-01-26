@@ -6,6 +6,8 @@ import IconButton from '@mui/material/IconButton';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Box from '@mui/material/Box';
 import { Link } from 'react-router-dom';
+import firebaseInit from '../../configs/firebaseInit';
+import { getFirestore, doc, updateDoc } from 'firebase/firestore';
 
 const StyledProductImg = styled('img')({
   top: 0,
@@ -15,6 +17,8 @@ const StyledProductImg = styled('img')({
   borderRadius: '10px',
   position: 'relative',
 });
+const app = firebaseInit();
+const db = getFirestore(app);
 
 export default function HouseCarousel({ img, id, member, setMember }) {
   const [isHovering, setIsHovering] = useState(true);
@@ -26,7 +30,7 @@ export default function HouseCarousel({ img, id, member, setMember }) {
       } else {
         m.favorite.add(id);
       }
-      console.log('action');
+      updateDoc(doc(db, 'member', m.uid), { favorite: Array.from(m.favorite) });
       return m;
     });
     setRenderTrigger((prev) => !prev);

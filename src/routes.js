@@ -6,6 +6,7 @@ import Contact from './pages/Contact';
 import Login from './pages/Login';
 import Search from './pages/Search';
 import Favorite from './pages/Favorite';
+import Join from './pages/Join';
 import { HouseDetail } from './pages/HouseDetail';
 import HouseBook from './pages/HouseBook';
 
@@ -49,6 +50,10 @@ export const router = createBrowserRouter([
       {
         path: 'favorite',
         element: <Favorite />,
+      },
+      {
+        path: 'join',
+        element: <Join />,
       },
     ],
   },
