@@ -4,7 +4,7 @@ import HouseCard from '../components/card/HouseCard';
 import Box from '@mui/material/Box';
 import { useOutletContext } from 'react-router-dom';
 import firebaseInit from '../configs/firebaseInit';
-import { getFirestore, getDocs, collection } from 'firebase/firestore';
+import { getFirestore, getDocs, collection, orderBy, query } from 'firebase/firestore';
 
 function Main() {
   const { member, setMember } = useOutletContext();
@@ -12,12 +12,12 @@ function Main() {
   const app = firebaseInit();
   const db = getFirestore(app);
   useEffect(() => {
-    getDocs(collection(db, 'house')).then((docSnap) => {
+    getDocs(query(collection(db, 'house'), orderBy('id', 'asc'))).then((docSnap) => {
       const newData = docSnap.docs.map((doc) => ({ ...doc.data() }));
-
       setHouses(newData);
     });
   }, []);
+
   return (
     <Box p={'0 80px'} m={'10px'}>
       <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>

@@ -53,7 +53,7 @@ BootstrapDialogTitle.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-export default function DateDialog({ state, setState, open, setOpen }) {
+export default function DateDialog({ state, setState, open, setOpen, setPoint, price }) {
   const [tempDate, setTempDate] = useState([
     {
       startDate: state.startDate,
@@ -63,6 +63,7 @@ export default function DateDialog({ state, setState, open, setOpen }) {
   ]);
   const submitHandler = () => {
     setState(tempDate[0]);
+    setPoint(getDateDiff(tempDate) * price);
     closeHandler();
   };
 

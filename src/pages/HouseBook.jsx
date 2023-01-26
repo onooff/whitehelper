@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   Container,
@@ -35,7 +35,8 @@ export default function HouseBook() {
   const { member, setMember } = useOutletContext();
   const [submitOpen, setSubmitOpen] = useState(false);
   const [dateOpen, setDateOpen] = useState(false);
-
+  const [point, setPoint] = useState();
+  const [isBook, setIsBook] = useState();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const id = searchParams.get('id');
@@ -59,7 +60,14 @@ export default function HouseBook() {
   const DateDialogClickHandler = () => {
     setDateOpen(true);
   };
-
+  useEffect(() => {
+    setPoint(getDateDiff([{ startDate: date.startDate, endDate: date.endDate }]) * house.price);
+    if (member && point <= member.point) {
+      setIsBook(true);
+    } else {
+      setIsBook(false);
+    }
+  }, [point, isBook]);
   return (
     <Box>
       <Container maxWidth="xl">
@@ -106,6 +114,8 @@ export default function HouseBook() {
                       setState={setDate}
                       open={dateOpen}
                       setOpen={setDateOpen}
+                      setPoint={setPoint}
+                      price={house.price}
                     />
                   </Box>
                   <Divider />
@@ -114,10 +124,6 @@ export default function HouseBook() {
                       <Typography variant="h5">환불 정책</Typography>
                     </Box>
                     <Box>
-                      {/* <Typography variant="h7">
-                        {convertDate(date.startDate)} 오후 12:00 전에 취소하면 부분 환불을 받으실 수
-                        있습니다. 그 이후에는 취소 시점에 따라 환불액이 결정됩니다.
-                      </Typography> */}
                       {getDateDiff([{ startDate: new Date(), endDate: date.startDate }]) <= 7 ? (
                         <Typography variant="h7">
                           {convertDate(date.startDate)} 오후 12:00 전에 취소하면 부분 환불을 받으실
@@ -138,12 +144,28 @@ export default function HouseBook() {
                   <Divider />
                   {member ? (
                     <Box>
-                      <Button onClick={SubmitDialogClickHandler}>
+                      <Button
+                        mt={2}
+                        variant="contained"
+                        sx={{
+                          width: '100%',
+                          height: '100%',
+                        }}
+                        onClick={SubmitDialogClickHandler}
+                        disabled={!isBook}
+                      >
                         <Typography variant="h5" mb={1}>
                           예약하기
                         </Typography>
                       </Button>
-                      <SubmitDialog open={submitOpen} setOpen={setSubmitOpen} />
+                      <SubmitDialog
+                        open={submitOpen}
+                        setOpen={setSubmitOpen}
+                        setMember={setMember}
+                        point={point}
+                        date={date}
+                        houseId={house.id}
+                      />
                     </Box>
                   ) : (
                     <Typography variant="h5" mb={1}>
@@ -204,20 +226,35 @@ export default function HouseBook() {
                           <Box>
                             <Stack direction={'row'} justifyContent="space-between">
                               <Typography variant="h7">보유한 포인트</Typography>
-                              <Typography variant="h7">data</Typography>
+                              <Typography variant="h7">
+                                {member.point}
+                                <SavingsTwoToneIcon sx={{ fontSize: 'small' }} />
+                              </Typography>
                             </Stack>
                           </Box>
                           <Box>
                             <Stack direction={'row'} justifyContent="space-between">
                               <Typography variant="h7">필요한 포인트</Typography>
-                              <Typography variant="h7">data</Typography>
+                              <Typography variant="h7">
+                                {point}
+                                <SavingsTwoToneIcon sx={{ fontSize: 'small' }} />
+                              </Typography>
                             </Stack>
                           </Box>
                           <Divider />
                           <Box>
                             <Stack direction={'row'} justifyContent="space-between">
                               <Typography variant="h7">내 잔여 포인트</Typography>
-                              <Typography variant="h7">data</Typography>
+                              {isBook ? (
+                                <Typography variant="h7">
+                                  {member.point - point}
+                                  <SavingsTwoToneIcon sx={{ fontSize: 'small' }} />
+                                </Typography>
+                              ) : (
+                                <Typography variant="h7" color={'red'}>
+                                  포인트가 부족합니다.
+                                </Typography>
+                              )}
                             </Stack>
                           </Box>
                         </Stack>
