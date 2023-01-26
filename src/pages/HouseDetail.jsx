@@ -1,53 +1,26 @@
-import React, { useState, useEffect } from "react";
-import Grid from "@mui/material/Grid";
-import { Box } from "@mui/system";
-import Container from "@mui/material/Container";
-import CustomDatePicker from "../components/detail/CustomDatePicker";
-import ImageList from "@mui/material/ImageList";
-import ImageListItem from "@mui/material/ImageListItem";
-import { houses } from "../_mock/data";
-import { memberList } from "../_mock/member";
-import { alpha, styled } from "@mui/material/styles";
-import { Stack, TextField, Typography } from "@mui/material";
-import Avatar from "@mui/material/Avatar";
-import Divider from "@mui/material/Divider";
-import Button from "@mui/material/Button";
-import LogoutIcon from "@mui/icons-material/Logout";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import StarRateIcon from "@mui/icons-material/StarRate";
-import CampaignIcon from "@mui/icons-material/Campaign";
-import SavingsTwoToneIcon from "@mui/icons-material/SavingsTwoTone";
-
-import { addDays } from "date-fns";
-import { useParams } from "react-router";
-
-function convertDateKr(props) {
-  return new Intl.DateTimeFormat("kr").format(props);
-}
-const getDateDiff = (state) => {
-  const diffDate = state[0].endDate.getTime() - state[0].startDate.getTime();
-  return Math.abs(diffDate / (1000 * 60 * 60 * 24)); // 밀리세컨 * 초 * 분 * 시 = 일
-};
-
-const RedditTextField = styled((props) => (
-  <TextField InputProps={{ disableUnderline: true }} {...props} />
-))(({ theme }) => ({
-  "& .MuiFilledInput-root": {
-    border: "1px solid #e2e2e1",
-    overflow: "hidden",
-    borderRadius: 4,
-    backgroundColor: theme.palette.mode === "light" ? "#fcfcfb" : "#2b2b2b",
-    transition: theme.transitions.create(["border-color", "background-color", "box-shadow"]),
-    "&:hover": {
-      backgroundColor: "transparent",
-    },
-    "&.Mui-focused": {
-      backgroundColor: "transparent",
-      boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 2px`,
-      borderColor: theme.palette.primary.main,
-    },
-  },
-}));
+import React, { useState, useEffect } from 'react';
+import Grid from '@mui/material/Grid';
+import { Box } from '@mui/system';
+import Container from '@mui/material/Container';
+import CustomDatePicker from '../components/detail/CustomDatePicker';
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
+import { houses } from '../_mock/data';
+import { memberList } from '../_mock/member';
+import { Stack, Typography } from '@mui/material';
+import Avatar from '@mui/material/Avatar';
+import Divider from '@mui/material/Divider';
+import Button from '@mui/material/Button';
+import LogoutIcon from '@mui/icons-material/Logout';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import StarRateIcon from '@mui/icons-material/StarRate';
+import CampaignIcon from '@mui/icons-material/Campaign';
+import SavingsTwoToneIcon from '@mui/icons-material/SavingsTwoTone';
+import { addDays } from 'date-fns';
+import { useParams } from 'react-router';
+import { Link } from 'react-router-dom';
+import { RedditTextField } from '../components/textfield/RedditTextField';
+import { convertDateKr, convertQueryDate, getDateDiff } from '../utils/dateUtils';
 
 function srcset(image, size, rows = 1, cols = 1) {
   return {
@@ -66,7 +39,7 @@ export const HouseDetail = () => {
     {
       startDate: new Date(),
       endDate: addDays(new Date(), 1),
-      key: "selection",
+      key: 'selection',
     },
   ]);
 
@@ -80,8 +53,8 @@ export const HouseDetail = () => {
         {/* 타이틀 */}
         <Container
           sx={{
-            padding: "0 80px",
-            marginTop: "24px",
+            padding: '0 80px',
+            marginTop: '24px',
           }}
         >
           <Typography variant="h4" mb={1}>
@@ -93,40 +66,40 @@ export const HouseDetail = () => {
             display="flex"
             align-items="flex-end"
             justifyContent="space-between"
-            p={"0 auto"}
-            mb={"4px"}
+            p={'0 auto'}
+            mb={'4px'}
           >
-            <Grid item xs="auto" alignItems={"flex-end"}>
+            <Grid item xs="auto" alignItems={'flex-end'}>
               <Stack direction="row" spacing={1}>
                 <Typography variant="h7">
-                  <StarRateIcon sx={{ fontSize: "medium" }} />
+                  <StarRateIcon sx={{ fontSize: 'medium' }} />
                   {house.rate}
                 </Typography>
               </Stack>
             </Grid>
             <Grid item xs="auto">
               <Stack direction="row" spacing={1}>
-                <Button size="small" sx={{ color: "black" }}>
+                <Button size="small" sx={{ color: 'black' }}>
                   <Stack direction="row" spacing={1}>
                     <LogoutIcon
                       sx={{
-                        fontSize: "medium",
-                        transform: "rotate(-0.25turn)",
+                        fontSize: 'medium',
+                        transform: 'rotate(-0.25turn)',
                       }}
                     />
-                    <Typography align="right" variant="h7" sx={{ textDecoration: "underline" }}>
+                    <Typography align="right" variant="h7" sx={{ textDecoration: 'underline' }}>
                       공유하기
                     </Typography>
                   </Stack>
                 </Button>
-                <Button size="small" sx={{ color: "black" }}>
+                <Button size="small" sx={{ color: 'black' }}>
                   <Stack direction="row" spacing={1}>
                     <FavoriteBorderIcon
                       sx={{
-                        fontSize: "medium",
+                        fontSize: 'medium',
                       }}
                     />
-                    <Typography align="right" variant="h7" sx={{ textDecoration: "underline" }}>
+                    <Typography align="right" variant="h7" sx={{ textDecoration: 'underline' }}>
                       저장
                     </Typography>
                   </Stack>
@@ -137,7 +110,7 @@ export const HouseDetail = () => {
         </Container>
         {/* 사진 */}
         <Container>
-          <ImageList sx={{ width: "100%" }} variant="quilted" cols={4}>
+          <ImageList sx={{ width: '100%' }} variant="quilted" cols={4}>
             {arr.map((size, index) => (
               <ImageListItem key={index} cols={size} rows={size}>
                 <img alt={index} {...srcset(house.img[index], size, size)} loading="lazy" />
@@ -148,7 +121,7 @@ export const HouseDetail = () => {
         {/* 소개 및 예약페이지 */}
         <Container>
           <Box mt={8}>
-            <Grid container justifyContent={"space-between"}>
+            <Grid container justifyContent={'space-between'}>
               {/* 제목 및 사진 */}
               <Grid container item xs={7}>
                 <Grid container item xs={12} mb={3}>
@@ -162,7 +135,7 @@ export const HouseDetail = () => {
                   </Grid>
                   <Grid item xs={1}>
                     <Avatar
-                      sx={{ width: "100%", height: "100%" }}
+                      sx={{ width: '100%', height: '100%' }}
                       src={member.profileImage}
                       alt={member.nickname}
                     />
@@ -171,9 +144,9 @@ export const HouseDetail = () => {
 
                 {/* 날짜 */}
 
-                <Divider style={{ width: "100%" }} />
+                <Divider style={{ width: '100%' }} />
 
-                <Box component="div" mt={4} sx={{ width: "100%" }}>
+                <Box component="div" mt={4} sx={{ width: '100%' }}>
                   <CustomDatePicker state={state} setState={setState} />
                 </Box>
               </Grid>
@@ -181,10 +154,10 @@ export const HouseDetail = () => {
               <Grid item xs={4.5}>
                 <Box
                   sx={{
-                    border: "1px solid rgb(221, 221, 221)",
-                    borderRadius: "12px",
-                    padding: "24px",
-                    boxShadow: "rgba(0, 0, 0, 0.12) 0px 6px 16px",
+                    border: '1px solid rgb(221, 221, 221)',
+                    borderRadius: '12px',
+                    padding: '24px',
+                    boxShadow: 'rgba(0, 0, 0, 0.12) 0px 6px 16px',
                   }}
                 >
                   {/* 가격 및 평점 */}
@@ -209,7 +182,7 @@ export const HouseDetail = () => {
                       </Grid>
                       <Grid item component="div" xs="auto">
                         <Stack direction="row" spacing={0.5}>
-                          <StarRateIcon sx={{ fontSize: "medium" }} />
+                          <StarRateIcon sx={{ fontSize: 'medium' }} />
                           <Typography component="span" variant="h7">
                             {house.rate}
                           </Typography>
@@ -221,8 +194,8 @@ export const HouseDetail = () => {
                       component="div"
                       mb={2}
                       sx={{
-                        borderRadius: "1",
-                        border: "2",
+                        borderRadius: '1',
+                        border: '2',
                       }}
                     >
                       <Stack direction="row">
@@ -231,24 +204,28 @@ export const HouseDetail = () => {
                           value={convertDateKr(state[0].startDate)}
                           id="reddit-input"
                           variant="filled"
-                          style={{ marginTop: 11, width: "100%" }}
+                          style={{ marginTop: 11, width: '100%' }}
                         />
                         <RedditTextField
                           label="체크아웃"
                           value={convertDateKr(state[0].endDate)}
                           id="reddit-input"
                           variant="filled"
-                          style={{ marginTop: 11, width: "100%" }}
+                          style={{ marginTop: 11, width: '100%' }}
                         />
                       </Stack>
                     </Box>
                     <Button
                       variant="contained"
                       sx={{
-                        width: "100%",
-                        height: "100%",
+                        width: '100%',
+                        height: '100%',
                       }}
                       mt={11}
+                      LinkComponent={Link}
+                      to={`/book?id=${id}&startDate=${convertQueryDate(
+                        state[0].startDate
+                      )}&endDate=${convertQueryDate(state[0].endDate)}`}
                     >
                       <Typography m={1} variant="h7" align="center">
                         예약하기
@@ -262,17 +239,17 @@ export const HouseDetail = () => {
                         {house.price} x {getDateDiff(state)}박
                       </Typography>
                       <Typography mt={2} mb={2} variant="h7" align="center">
-                        <SavingsTwoToneIcon sx={{ fontSize: "medium" }} />
+                        <SavingsTwoToneIcon sx={{ fontSize: 'medium' }} />
                         {house.price * getDateDiff(state)}
                       </Typography>
                     </Stack>
-                    <Divider style={{ width: "100%" }} />
+                    <Divider style={{ width: '100%' }} />
                     <Stack direction="row" justifyContent="space-between">
                       <Typography mt={2} mb={2} variant="h7">
                         총합계
                       </Typography>
                       <Typography mt={2} mb={2} variant="h7">
-                        <SavingsTwoToneIcon sx={{ fontSize: "medium" }} />
+                        <SavingsTwoToneIcon sx={{ fontSize: 'medium' }} />
                         {house.price * getDateDiff(state)}
                       </Typography>
                     </Stack>
@@ -281,11 +258,11 @@ export const HouseDetail = () => {
                 <Box mt={3} textAlign="center">
                   <Button>
                     <Stack direction="row" spacing={1} alignItems="center !important">
-                      <CampaignIcon sx={{ fontSize: "medium" }} />
+                      <CampaignIcon sx={{ fontSize: 'medium' }} />
                       <Typography
                         component="span"
                         variant="h7"
-                        sx={{ textDecoration: "underline" }}
+                        sx={{ textDecoration: 'underline' }}
                       >
                         숙소 신고하기
                       </Typography>

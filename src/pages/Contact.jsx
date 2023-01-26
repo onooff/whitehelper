@@ -1,5 +1,5 @@
-import { Grid, Box, Typography, Divider, Avatar, Button } from '@mui/material';
-import { LocationOn, Call, Email, Message } from '@mui/icons-material';
+import { Grid, Box, Typography, Divider } from '@mui/material';
+import { LocationOn, Call, Email } from '@mui/icons-material';
 
 function ContactElement({ Icon, title, content }) {
   return (
@@ -49,23 +49,6 @@ export default function Contact() {
         />
         <ContactElement Icon={Call} title="화이트헬퍼 연락처" content="010-2944-9515" />
         <ContactElement Icon={Email} title="E-Mail" content="admin@whitehelper.com" />
-        <Grid item container xs={12} mb={'3rem'}>
-          <Grid item xs={1} display="flex" justifyContent="center" alignItems="center">
-            <Message fontSize="large" />
-          </Grid>
-          <Grid item xs={11}>
-            <Button variant="contained">
-              <Avatar
-                alt="admin"
-                src="/mock/member/admin.jpg"
-                sx={{ width: '1.5rem', height: '1.5rem' }}
-              ></Avatar>
-              <Typography variant="h5" sx={{ ml: '0.7rem' }}>
-                채팅으로 문의하기
-              </Typography>
-            </Button>
-          </Grid>
-        </Grid>
       </Grid>
       <Grid
         item

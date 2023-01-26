@@ -1,8 +1,18 @@
-import { InputBase } from "@mui/material";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { InputBase, Box, Dialog, DialogContent, DialogContentText, DialogActions, Button } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { Search as SearchIcon } from "@mui/icons-material";
 
 export default function SearchInput() {
+  const [open, setOpen] = useState(false);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const navigate = useNavigate();
+
   const Search = styled("div")(({ theme }) => ({
     position: "relative",
     borderRadius: "30px",
@@ -35,16 +45,44 @@ export default function SearchInput() {
     },
   }));
 
+  const navigateToSearch = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const keyword = data.get("keyword");
+    if (!keyword) {
+      setOpen(true);
+    }
+    else {
+      navigate("/search/" + keyword);
+    }
+  }
+
   return (
-    <Search>
-      <SearchIconWrapper>
-        <SearchIcon />
-      </SearchIconWrapper>
-      <StyledInputBase
-        placeholder="Search…"
-        inputProps={{ "aria-label": "search" }}
-        fullWidth={true}
-      />
-    </Search>
+    <>
+      <Box component="form" onSubmit={navigateToSearch} noValidate>
+        <Search>
+          <SearchIconWrapper >
+            <SearchIcon />
+          </SearchIconWrapper>
+          <StyledInputBase
+            placeholder="Search…"
+            inputProps={{ "aria-label": "search" }}
+            sx={{ width: "30rem" }}
+            id="keyword"
+            name="keyword" />
+        </Search>
+      </Box>
+
+      <Dialog open={open} onClose={handleClose}>
+        <DialogContent>
+          <DialogContentText>
+            검색어가 입력되지 않았습니다.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>확인</Button>
+        </DialogActions>
+      </Dialog>
+    </>
   );
 }

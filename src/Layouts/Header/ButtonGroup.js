@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Tooltip, Button, Avatar } from "@mui/material";
-import { QuestionMark, Phone, Login, Favorite, Message, Settings, Logout } from "@mui/icons-material";
+import { Login, Logout } from "@mui/icons-material";
 
 export default function ButtonGroup({ member, setMember }) {
   const logout = () => { setMember((prev) => null); }
@@ -21,10 +21,7 @@ export default function ButtonGroup({ member, setMember }) {
         :
         <>
           <Tooltip title="찜목록">
-            <Button LinkComponent={Link} to="/">FAVORITE</Button>
-          </Tooltip>
-          <Tooltip title="메시지">
-            <Button LinkComponent={Link} to="/">MESSAGE</Button>
+            <Button LinkComponent={Link} to="favorite">FAVORITE</Button>
           </Tooltip>
           <Tooltip title="회원정보">
             <Button LinkComponent={Link} to="/">SETTINGS</Button>
