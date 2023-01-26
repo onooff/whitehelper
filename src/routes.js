@@ -9,6 +9,8 @@ import Favorite from './pages/Favorite';
 import Join from './pages/Join';
 import { HouseDetail } from './pages/HouseDetail';
 import HouseBook from './pages/HouseBook';
+import BookComplete from './pages/BookComplete';
+import BookList from './pages/BookList';
 
 export const router = createBrowserRouter([
   {
@@ -54,6 +56,14 @@ export const router = createBrowserRouter([
       {
         path: 'join',
         element: <Join />,
+      },
+      {
+        path: 'book/complete',
+        element: <BookComplete />,
+      },
+      {
+        path: 'books',
+        element: <BookList />,
       },
     ],
   },

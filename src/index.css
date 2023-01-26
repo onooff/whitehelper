@@ -1,0 +1,15 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/static/pretendard-dynamic-subset.css');
+
+@font-face {
+  font-family: 'Open Sans';
+  src: local('Open Sans'), url('./fonts/OpenSans-ExtraBoldItalic.ttf') format('truetype');
+  font-weight: bold;
+}
+
+.font-face-os {
+  font-family: 'Open Sans';
+}
+
+.MuiTypography-root {
+  font-family: 'Pretendard';
+}
