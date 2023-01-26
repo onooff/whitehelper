@@ -16,6 +16,8 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import StarRateIcon from '@mui/icons-material/StarRate';
 import CampaignIcon from '@mui/icons-material/Campaign';
 import SavingsTwoToneIcon from '@mui/icons-material/SavingsTwoTone';
+import FavoriteTwoToneIcon from '@mui/icons-material/FavoriteTwoTone';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import { addDays } from 'date-fns';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
@@ -24,6 +26,8 @@ import { convertDateKr, convertQueryDate, getDateDiff } from '../utils/dateUtils
 import Snackbar from '@mui/material/Snackbar';
 import ReportDialog from '../components/detail/ReportDialog';
 import { useOutletContext } from 'react-router-dom';
+import firebaseInit from '../configs/firebaseInit';
+import { getFirestore, doc, updateDoc } from 'firebase/firestore';
 
 function srcset(image, size, rows = 1, cols = 1) {
   return {
@@ -34,9 +38,10 @@ function srcset(image, size, rows = 1, cols = 1) {
 
 const arr = [2, 1, 1, 1, 1];
 export const HouseDetail = () => {
-  const { member } = useOutletContext();
+  const { member, setMember } = useOutletContext();
 
   const param = useParams();
+  const oid = parseInt(param.id);
   const id = parseInt(param.id) - 1;
   const m = memberList[id % 6];
   const [house, setHouse] = useState(houses[id]);
@@ -64,8 +69,20 @@ export const HouseDetail = () => {
       .catch(() => {});
   };
 
+  const [renderTrigger, setRenderTrigger] = useState(true);
+  const app = firebaseInit();
+  const db = getFirestore(app);
   const saveClickhandler = () => {
-    console.log('저장');
+    setMember((m) => {
+      if (m.favorite.has(oid)) {
+        m.favorite.delete(oid);
+      } else {
+        m.favorite.add(oid);
+      }
+      updateDoc(doc(db, 'member', m.uid), { favorite: Array.from(m.favorite) });
+      return m;
+    });
+    setRenderTrigger((prev) => !prev);
   };
 
   return (
@@ -125,11 +142,15 @@ export const HouseDetail = () => {
 
                 <Button size="small" sx={{ color: 'black' }} onClick={saveClickhandler}>
                   <Stack direction="row" spacing={1} alignItems="center">
-                    <FavoriteBorderIcon
-                      sx={{
-                        fontSize: 'medium',
-                      }}
-                    />
+                    {member ? (
+                      member.favorite.has(oid) ? (
+                        <FavoriteIcon sx={{ fontSize: 'medium', color: 'hotpink' }} />
+                      ) : (
+                        <FavoriteBorderIcon sx={{ fontSize: 'medium' }} />
+                      )
+                    ) : (
+                      <FavoriteBorderIcon sx={{ fontSize: 'medium' }} />
+                    )}
                     <Typography align="right" variant="h7" sx={{ textDecoration: 'underline' }}>
                       찜하기
                     </Typography>
