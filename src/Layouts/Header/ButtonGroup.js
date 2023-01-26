@@ -9,6 +9,7 @@ export default function ButtonGroup({ member, setMember }) {
   const logout = () => {
     const auth = getAuth();
     signOut(auth).then(() => {
+      alert('로그아웃 성공');
       setMember(null);
     }).catch((error) => {
       alert('로그아웃 실패');
