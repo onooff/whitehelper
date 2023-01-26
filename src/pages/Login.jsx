@@ -105,9 +105,9 @@ export default function Login() {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link component={RouterLink} to="/">
+              {/* <Link component={RouterLink} to="/">
                 ID / PW 찾기
-              </Link>
+              </Link> */}
             </Grid>
             <Grid item>
               <Link component={RouterLink} to="/join">
