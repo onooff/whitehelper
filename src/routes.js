@@ -8,6 +8,8 @@ import Search from './pages/Search';
 import Favorite from './pages/Favorite';
 import { HouseDetail } from './pages/HouseDetail';
 import HouseBook from './pages/HouseBook';
+import BookComplete from './pages/BookComplete';
+import BookList from './pages/BookList';
 
 export const router = createBrowserRouter([
   {
@@ -49,6 +51,14 @@ export const router = createBrowserRouter([
       {
         path: 'favorite',
         element: <Favorite />,
+      },
+      {
+        path: 'book/complete',
+        element: <BookComplete />,
+      },
+      {
+        path: 'books',
+        element: <BookList />,
       },
     ],
   },
