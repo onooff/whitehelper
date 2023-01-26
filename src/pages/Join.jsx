@@ -7,6 +7,7 @@ import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 
 export default function Join() {
   const navigate = useNavigate();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -30,12 +31,13 @@ export default function Join() {
           point: 10000,
           profileImage: '',
           favorite: [],
+          book: [],
         });
-        alert('가입성공');
+        alert('가입 성공');
         navigate('/login');
       })
       .catch((error) => {
-        alert('가입실패');
+        alert('가입 실패');
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log('실패', errorCode, errorMessage);

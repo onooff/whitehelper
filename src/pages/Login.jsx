@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-import { Link as RouterLink, useOutletContext, useNavigate } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import {
   Button,
   TextField,
@@ -10,18 +9,15 @@ import {
   Container,
   Link,
 } from '@mui/material';
-import firebaseInit from '../configs/firebaseInit';
-import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
-import { getFirestore, doc, getDoc } from 'firebase/firestore';
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  setPersistence,
+  browserSessionPersistence,
+} from 'firebase/auth';
 
 export default function Login() {
-  const { member, setMember } = useOutletContext();
   const navigate = useNavigate();
-  useEffect(() => {
-    if (member) {
-      navigate('');
-    }
-  });
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -35,20 +31,12 @@ export default function Login() {
       localStorage.removeItem('rememberEmail');
     }
 
-    const app = firebaseInit();
     const auth = getAuth();
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        const uid = user.uid;
-
-        const db = getFirestore(app);
-        getDoc(doc(db, 'member', uid)).then((docSnap) => {
-          const m = docSnap.data();
-          m.favorite = new Set(m.favorite);
-          m.uid = uid;
+    setPersistence(auth, browserSessionPersistence)
+      .then(() => {
+        signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
           alert('로그인 성공');
-          setMember(m);
+          navigate('/');
         });
       })
       .catch((error) => {
@@ -117,9 +105,9 @@ export default function Login() {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link component={RouterLink} to="/">
+              {/* <Link component={RouterLink} to="/">
                 ID / PW 찾기
-              </Link>
+              </Link> */}
             </Grid>
             <Grid item>
               <Link component={RouterLink} to="/join">
