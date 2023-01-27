@@ -1,10 +1,9 @@
 import React from 'react';
 import { Box, Button, Container, Grid, Paper, Typography } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import { Link, useOutletContext } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default function BookComplete() {
-  const { member, setMember } = useOutletContext();
   return (
     <Box>
       <Container maxWidth="xl">
@@ -46,11 +45,11 @@ export default function BookComplete() {
                   홈으로
                 </Button>
               </Grid>
-              {/* <Grid item>
+              <Grid item>
                 <Button LinkComponent={Link} to="/books" variant="contained" size="large">
                   예약 내역
                 </Button>
-              </Grid> */}
+              </Grid>
             </Grid>
           </Container>
         </Paper>

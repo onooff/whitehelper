@@ -3,7 +3,29 @@ import { Box, Button, Divider, Typography } from '@mui/material';
 import { Container, Stack } from '@mui/system';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import { convertDateKr, getDateDiff } from '../../utils/dateUtils';
-export default function HouseBookContent({ startDate, endDate, location, id }) {
+import { getFirestore, doc, updateDoc } from 'firebase/firestore';
+import firebaseInit from '../../configs/firebaseInit';
+
+export default function HouseBookContent({
+  setRenderTrigger,
+  startDate,
+  endDate,
+  location,
+  bookId,
+  member,
+  setMember,
+}) {
+  const app = firebaseInit();
+  const db = getFirestore(app);
+
+  const deleteClickHandler = () => {
+    setMember((m) => {
+      m.book.splice(bookId, 1);
+      updateDoc(doc(db, 'member', m.uid), { book: m.book });
+      return m;
+    });
+    setRenderTrigger((prev) => !prev);
+  };
   return (
     <Box
       component="div"
@@ -13,19 +35,52 @@ export default function HouseBookContent({ startDate, endDate, location, id }) {
       }}
     >
       <Stack p={2} gap={1}>
-        <Stack direction={'row'} alignItems="flex-end" gap={1}>
+        {getDateDiff([{ startDate: new Date(), endDate: startDate }]) === 0 ? (
           <Box>
-            <CalendarMonthIcon />
+            <Stack direction={'row'} alignItems="flex-end" gap={1}>
+              <Box>
+                <CalendarMonthIcon />
+              </Box>
+              <Box>
+                <Typography component="span" variant="h5" color="red">
+                  오늘
+                </Typography>
+              </Box>
+              <Box>
+                <Typography component="span"> 입실입니다.</Typography>
+              </Box>
+            </Stack>
           </Box>
+        ) : getDateDiff([{ startDate: new Date(), endDate: startDate }]) > 0 ? (
           <Box>
-            <Typography component="span" variant="h5">
-              {getDateDiff([{ startDate: startDate, endDate: new Date() }])}일
-            </Typography>
+            <Stack direction={'row'} alignItems="flex-end" gap={1}>
+              <Box>
+                <CalendarMonthIcon />
+              </Box>
+              <Box>
+                <Typography component="span" variant="h5">
+                  {getDateDiff([{ startDate: new Date(), endDate: startDate }])}일
+                </Typography>
+              </Box>
+              <Box>
+                <Typography component="span"> 남았습니다.</Typography>
+              </Box>
+            </Stack>
           </Box>
+        ) : (
           <Box>
-            <Typography component="span"> 남았습니다.</Typography>
+            <Stack direction={'row'} alignItems="flex-end" gap={1}>
+              <Box>
+                <CalendarMonthIcon />
+              </Box>
+              <Box>
+                <Typography component="span" variant="h5">
+                  기간이 지났습니다.
+                </Typography>
+              </Box>
+            </Stack>
           </Box>
-        </Stack>
+        )}
         <Divider />
 
         <Container>
@@ -45,9 +100,7 @@ export default function HouseBookContent({ startDate, endDate, location, id }) {
             width: '100%',
             height: '100%',
           }}
-          onClick={() => {
-            alert(id);
-          }}
+          onClick={deleteClickHandler}
         >
           <Typography>예약 취소</Typography>
         </Button>
