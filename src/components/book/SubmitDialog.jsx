@@ -7,7 +7,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Paper from '@mui/material/Paper';
 import Draggable from 'react-draggable';
-import { getFirestore, doc, updateDoc } from 'firebase/firestore';
+import { getFirestore, doc, updateDoc, Timestamp } from 'firebase/firestore';
 import firebaseInit from '../../configs/firebaseInit';
 import { useNavigate } from 'react-router-dom';
 
@@ -30,7 +30,11 @@ export default function SubmitDialog({ open, setOpen, setMember, point, date, ho
     const db = getFirestore(app);
     setMember((m) => {
       m.point = m.point - point;
-      m.book.push({ startDate: date.startDate, endDate: date.endDate, houseId });
+      m.book.push({
+        startDate: Timestamp.fromDate(date.startDate),
+        endDate: Timestamp.fromDate(date.endDate),
+        houseId,
+      });
       updateDoc(doc(db, 'member', m.uid), { point: m.point, book: Array.from(m.book) })
         .then(() => {
           setOpen(false);

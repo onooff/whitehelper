@@ -4,7 +4,17 @@ import { Container } from '@mui/system';
 import HouseBookImg from './HouseBookImg';
 import HouseBookContent from './HouseBookContent';
 
-export default function HouseBookCard({ startDate, endDate, location, img, id, bookId }) {
+export default function HouseBookCard({
+  setRenderTrigger,
+  startDate,
+  endDate,
+  location,
+  img,
+  id,
+  bookId,
+  member,
+  setMember,
+}) {
   return (
     <Container
       sx={{
@@ -26,10 +36,14 @@ export default function HouseBookCard({ startDate, endDate, location, img, id, b
             </Grid>
             <Grid item xs={9}>
               <HouseBookContent
+                setRenderTrigger={setRenderTrigger}
                 startDate={startDate}
                 endDate={endDate}
                 location={location}
+                bookId={bookId}
                 id={id}
+                member={member}
+                setMember={setMember}
               />
             </Grid>
           </Grid>
