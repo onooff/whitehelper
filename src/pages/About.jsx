@@ -17,7 +17,7 @@ export default function About() {
       </Grid>
       <Grid container sx={{ mb: '1rem' }}>
         <Grid item xs={12} display="flex" justifyContent="center" alignItems="center">
-          <Box
+          {/* <Box
             component="iframe"
             width="1366px"
             height="768px"
@@ -26,7 +26,17 @@ export default function About() {
             frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowfullscreen
-          ></Box>
+          ></Box> */}
+          <Box
+            component="video"
+            src="/WhitehelperIntro.mp4"
+            width="1366px"
+            height="768px"
+            controls
+            muted
+            autoPlay
+            loop
+          />
         </Grid>
       </Grid>
       <Grid
